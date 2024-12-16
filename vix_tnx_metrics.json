@@ -1,0 +1,18 @@
+{
+  "VIX": {
+    "Average Value": 19.56,
+    "Minimum Value": 15.78,
+    "Maximum Value": 26.52,
+    "Number of Entries": 100
+  },
+  "TNX": {
+    "Average Value": 3.6,
+    "Minimum Value": 3.29,
+    "Maximum Value": 4.07,
+    "Number of Entries": 100
+  },
+  "Summary": {
+    "Analysis Period": "2023-01-03 to 2023-05-25",
+    "Total Days Analyzed": 100
+  }
+}
