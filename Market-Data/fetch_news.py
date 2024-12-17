@@ -11,6 +11,20 @@ def fetch_stock_news_monthly(api_key, stock_ticker, articles_per_month=1, start_
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
 
+    # Create the table if it doesn't exist
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS stock_news (
+            id INTEGER PRIMARY KEY,
+            ticker TEXT,
+            title TEXT,
+            description TEXT,
+            timestamp TEXT,
+            sentiment_score REAL,
+            UNIQUE(ticker, title, timestamp)  -- Prevent duplicate entries
+        )
+    """)
+    conn.commit()
+
     while current_date <= datetime.strptime(end_date, "%Y-%m-%d"):
         month_start = current_date.replace(day=1)
         last_day = calendar.monthrange(month_start.year, month_start.month)[1]
@@ -20,7 +34,7 @@ def fetch_stock_news_monthly(api_key, stock_ticker, articles_per_month=1, start_
             "api_token": api_key,
             "symbols": stock_ticker,
             "language": "en",
-            "limit": articles_per_month * 3,  # Fetch more to account for duplicates
+            "limit": articles_per_month * 3,
             "published_after": month_start.strftime("%Y-%m-%dT00:00:00"),
             "published_before": month_end.strftime("%Y-%m-%dT23:59:59"),
             "group_similar": "true",
@@ -57,7 +71,6 @@ def fetch_stock_news_monthly(api_key, stock_ticker, articles_per_month=1, start_
 
     conn.close()
     return all_news
-
 
 # Step 2: Clean Text Using BeautifulSoup
 def clean_text(text):
