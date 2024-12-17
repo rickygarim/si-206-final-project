@@ -45,4 +45,4 @@ def visualize_sentiment_subplots(db_name="market_database.db"):
     plt.show()
 
 if __name__ == "__main__":
-    visualize_sentiment_subplots(save_path="sentiment_graph.png")
+    visualize_sentiment_subplots()
