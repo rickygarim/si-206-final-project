@@ -10,7 +10,7 @@ class VisualizationPipeline:
     def _fetch_data_from_db(self):
         """Fetch stock data from the database."""
         with sqlite3.connect(self.db_path) as conn:
-            query = "SELECT date, close_price, Moving_Average FROM stock_data ORDER BY date"
+            query = "SELECT date, close_price, Moving_Average FROM price_data ORDER BY date"
             df = pd.read_sql(query, conn)
         return df
 

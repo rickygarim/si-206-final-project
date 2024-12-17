@@ -9,7 +9,7 @@ class DataProcessingPipeline:
     def _fetch_data(self):
         """Fetch stock data from the database."""
         with sqlite3.connect(self.db_path) as conn:
-            query = "SELECT date, close_price FROM stock_data ORDER BY date"
+            query = "SELECT date, close_price FROM price_data ORDER BY date"
             df = pd.read_sql(query, conn)  # Returns a DataFrame
         return df
 
@@ -35,7 +35,7 @@ class DataProcessingPipeline:
             for _, row in processed_df.iterrows():
                 try:
                     cursor.execute("""
-                        INSERT OR REPLACE INTO stock_data (date, close_price, Moving_Average)
+                        INSERT OR REPLACE INTO price_data (date, close_price, Moving_Average)
                         VALUES (?, ?, ?)
                     """, (
                         row['Date'].strftime('%Y-%m-%d'), 

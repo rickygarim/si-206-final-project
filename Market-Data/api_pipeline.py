@@ -13,15 +13,17 @@ class ApiPipeline:
         """Fetch the latest stored date from the database."""
         conn = sqlite3.connect(self.db_name)
         cursor = conn.cursor()
-        cursor.execute('SELECT MAX(date) FROM stock_data')
+        cursor.execute('SELECT MAX(date) FROM price_data')
         result = cursor.fetchone()
         conn.close()
+
         return result[0] if result[0] else None
 
     def _get_stock_data(self): 
         """Fetch stock data from the API."""
         url = f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&outputsize=full&symbol=SPY&apikey={self.market_data_key}'
         response = requests.get(url)
+        
         return response.json().get("Time Series (Daily)", {})
     
     def fetch_data(self): 
@@ -47,7 +49,7 @@ class ApiPipeline:
             # Collect the next 25 records
             close_price = float(details["4. close"])
             new_data.append((date, close_price))
-            if len(new_data) >= 25:  # Limit to 25 days
+            if len(new_data) >= 25:  
                 break
         
         return new_data
