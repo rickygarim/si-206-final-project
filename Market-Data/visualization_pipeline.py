@@ -32,7 +32,7 @@ class VisualizationPipeline:
         plt.grid(True)
         plt.tight_layout()
 
-        save_path = os.path.join(os.getcwd(), 'stock_moving_average_plot.png')
+        save_path = os.path.join(os.getcwd(), 'visuals', 'stock_moving_average_plot.png')
         plt.savefig(save_path)
 
         print(f"Plot saved to {save_path}")
