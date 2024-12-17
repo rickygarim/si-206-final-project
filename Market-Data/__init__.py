@@ -7,11 +7,9 @@ from data_processing_pipeline import DataProcessingPipeline
 from visualization_pipeline import VisualizationPipeline
 
 class MarketDataStage:
-    def __init__(self, chunks):
+    def __init__(self):
         market_data_api_key = "5ARIXXIWB0Y1Q2BP"
         database_name = "market_database.db"
-        
-        self.chunks = chunks 
         
         self.api = ApiPipeline(market_data_api_key, database_name)
         self.db = DatabasePipeline(database_name)
@@ -21,8 +19,7 @@ class MarketDataStage:
 
     def run(self):
         # Call Api 
-        for _ in range(self.chunks): 
-            raw_data = self.api.fetch_data()
+        raw_data = self.api.fetch_data()
         
         # Save info to DB 
         self.db.save_data(raw_data)
@@ -34,6 +31,6 @@ class MarketDataStage:
         self.visualizer.visualize_data()
 
 if __name__ == "__main__":
-    pipeline = MarketDataStage(4)
+    pipeline = MarketDataStage()
     pipeline.run()
     
