@@ -146,7 +146,7 @@ def visualize_sentiment(db_name="stocks.db", from_date=None, to_date=None):
 # Main Execution
 if __name__ == "__main__":
     # API Key and Stock Tickers
-    API_KEY = "hy0Fr7NXBy3XT6YnIZB8jVq02Z1JTTicjsQjMVUA"
+    API_KEY = "oAzzj30pcTlv6xr5n6sgdnsctGHo3TW7N5vtE3HW"
     STOCK_TICKERS = ["AAPL", "MSFT", "TSLA", "GOOGL", "AMZN", "NFLX", "NVDA", "META", "ADBE", "INTC"]
     # Calculate date range (past decade)
     today = datetime.utcnow()
