@@ -1,36 +1,16 @@
-import os
-import sqlite3
-import pandas as pd
-from api_pipeline import ApiPipeline
-from database_pipeline import DatabasePipeline
-from data_processing_pipeline import DataProcessingPipeline
-from visualization_pipeline import VisualizationPipeline
+from fetch_news import fetch_stock_news_monthly, clean_text
+from sentiment_analysis import calculate_sentiment
+from database_manager import save_news_to_db
+from datetime import datetime
 
-class MarketDataStage:
-    def __init__(self):
-        market_data_api_key = "5ARIXXIWB0Y1Q2BP"
-        database_name = "market_database.db"
-        
-        self.api = ApiPipeline(market_data_api_key, database_name)
-        self.db = DatabasePipeline(database_name)
-        self.processor = DataProcessingPipeline(4, database_name)
-        self.visualizer = VisualizationPipeline(database_name)
-    
+API_KEY = "y0dm5kEyTgcWVzg5tSTz1zqbAr3xESJud25MQlfa"
+STOCK_TICKERS = ["AAPL", "MSFT", "TSLA", "GOOGL", "AMZN", "NFLX"]
+start_date = "2024-09-01"
+end_date = "2024-12-31"
 
-    def run(self):
-        # Call Api 
-        raw_data = self.api.fetch_data()
-        
-        # Save info to DB 
-        self.db.save_data(raw_data)
+print(f"Fetching data from {start_date} to {end_date}...")
 
-        # Process Data
-        processed_data = self.processor.process_data()
-        
-        # Visualize Data
-        self.visualizer.visualize_data()
+for ticker in STOCK_TICKERS:
+    news_data = fetch_stock_news_monthly(API_KEY, ticker, articles_per_month=1, start_date=start_date, end_date=end_date)
+    save_news_to_db(news_data, ticker)
 
-if __name__ == "__main__":
-    pipeline = MarketDataStage()
-    pipeline.run()
-    
