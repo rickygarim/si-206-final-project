@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from datetime import datetime
 
-def visualize_sentiment_subplots(db_name="Market-Data/market_database.db"):
+def visualize_sentiment_subplots(db_name="market_database.db"):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
     cursor.execute("""
