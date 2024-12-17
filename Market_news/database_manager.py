@@ -2,7 +2,7 @@ import sqlite3
 from fetch_news import clean_text
 from sentiment_analysis import calculate_sentiment
 
-def save_news_to_db(news_data, stock_ticker, db_name="market_database.db"):
+def save_news_to_db(news_data, stock_ticker, db_name="Market-Data/market_database.db"):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
 

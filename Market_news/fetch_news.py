@@ -4,7 +4,7 @@ import calendar
 from datetime import datetime, timedelta
 import sqlite3
 
-def fetch_stock_news_monthly(api_key, stock_ticker, articles_per_month=1, start_date=None, end_date=None, db_name="market_database.db"):
+def fetch_stock_news_monthly(api_key, stock_ticker, articles_per_month=1, start_date=None, end_date=None, db_name="Market-Data/market_database.db"):
     url = "https://api.marketaux.com/v1/news/all"
     all_news = []
     current_date = datetime.strptime(start_date, "%Y-%m-%d")
